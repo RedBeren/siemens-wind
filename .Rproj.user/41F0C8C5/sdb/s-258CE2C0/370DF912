@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "# Run data_cleaning.R first\n\nlibrary(arules)\n\n",
+    "created" : 1488228878998.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3118660713",
+    "id" : "370DF912",
+    "lastKnownWriteTime" : 1488229675,
+    "last_content_update" : 1488229675757,
+    "path" : "~/GitHub/siemens-wind/association.R",
+    "project_path" : "association.R",
+    "properties" : {
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

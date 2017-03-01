@@ -1,6 +1,8 @@
+library(RCurl)
 library(chron)
 
-dat <- read.csv('C:/Users/zackt/Documents/GitHub/siemens-wind/Data/Data/All Sites Together encoded.csv')
+dat.url <- getURL('https://raw.githubusercontent.com/RedBeren/siemens-wind/master/Data/Data/All%20Sites%20Together%20encoded.csv')
+dat <- read.csv(text = dat.url)
 
 # Clean up dates
 date.clean <- function(d) {
@@ -15,3 +17,15 @@ date.clean <- function(d) {
 dat$VisitStartTime <- date.clean(dat$VisitStartTime)
 dat$TimeOn <- date.clean(dat$TimeOn)
 dat$TimeOff <- date.clean(dat$TimeOff)
+
+# Park_Name is a little messed up
+names(dat)[1] <- 'Park_Name'
+
+# Discretize FactorA so it can be used in association analysis
+dat$FactorA <- as.factor(dat$FactorA)
+
+# StationID, VisitID, Code should be strings
+dat$StationID <- as.character(dat$StationID)
+dat$VisitId <- as.character(dat$VisitId)
+dat$Code <- as.character(dat$Code)
+
