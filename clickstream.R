@@ -1,6 +1,6 @@
-dat <- read.csv('C:/Users/Harazahn/Desktop/Wind/Data/All Sites Together encoded.csv')
+# dat <- read.csv('C:/Users/Harazahn/Desktop/Wind/Data/All Sites Together encoded.csv')
 
-clickstreams <- read.csv('C:/Users/Harazahn/Desktop/Wind/Data/clickstream_fixed.csv') ##Broken again. See SQL file.
+# clickstreams <- read.csv('C:/Users/Harazahn/Desktop/Wind/Data/clickstream_fixed.csv') ##Broken again. See SQL file.
 
 #Clustering
 csf <- tempfile()
