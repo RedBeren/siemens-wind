@@ -1,14 +1,14 @@
 {
     "collab_server" : "",
-    "contents" : "# dat <- read.csv('C:/Users/Harazahn/Desktop/Wind/Data/All Sites Together encoded.csv')\n\n# clickstreams <- read.csv('C:/Users/Harazahn/Desktop/Wind/Data/clickstream_fixed.csv') ##Broken again. See SQL file.\n\n#Clustering\ncsf <- tempfile()\nwriteLines(clickstreams, csf)\ncls <- readClickstreams(csf, header = TRUE)\nclusters <- clusterClickstreams(cls, order = 0, centers = 2)\nprint(clusters)\n\n#Markov Chain\ncsf <- tempfile()\nwriteLines(clickstreams, csf)\ncls <- readClickstreams(csf, header = TRUE)\nmc <- fitMarkovChain(cls)\nshow(mc)\n\n#Frequencies\ncsf <- tempfile()\nwriteLines(clickstreams, csf)\ncls <- readClickstreams(csf, header = TRUE)\nfrequencyDF <- frequencies(cls)",
+    "contents" : "library(clickstream)\n\n#Clustering (quick)\nclusters <- clusterClickstreams(clicks, order = 0, centers = 2)\n## Probably don't print them, they're long af\n# print(clusters)\n\n#Markov Chain (takes forever)\nmc <- fitMarkovChain(clicks)\nshow(mc)\n\n#Frequencies\nfrequencyDF <- frequencies(clicks)\n",
     "created" : 1488748784494.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "2108829358",
+    "hash" : "3372958911",
     "id" : "8262A40C",
-    "lastKnownWriteTime" : 1488748833,
-    "last_content_update" : 1488748833560,
+    "lastKnownWriteTime" : 1488927499,
+    "last_content_update" : 1488927499682,
     "path" : "~/GitHub/siemens-wind/clickstream.R",
     "project_path" : "clickstream.R",
     "properties" : {

@@ -23,3 +23,4 @@ for (i in 1:nrow(sorted_codes)) {
     clicks[[visit.ind]] <- append(clicks[[visit.ind]], sorted_codes$Code[i])
   }
 }
+class(clicks) <- "Clickstreams"
