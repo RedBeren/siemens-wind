@@ -8,8 +8,10 @@
 # Which codes are they?
 
 library(dplyr)
+library(RCurl)
 
-codes <- read.csv('C:/Users/zackt/Documents/GitHub/siemens-wind/Data/Data/Codes and Event Warning Stop classification.csv')
+dat.url <- getURL('https://raw.githubusercontent.com/RedBeren/siemens-wind/master/Data/Data/Codes%20and%20Event%20Warning%20Stop%20classification.csv')
+codes <- read.csv(text = dat.url)
 
 # Code and IsManualStop field headers a little messed up
 names(codes)[1] <- 'Code'

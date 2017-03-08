@@ -1,8 +1,12 @@
 library(RCurl)
 library(chron)
+library(dplyr)
 
 dat.url <- getURL('https://raw.githubusercontent.com/RedBeren/siemens-wind/master/Data/Data/All%20Sites%20Together%20encoded.csv')
 dat <- read.csv(text = dat.url)
+
+dat.url <- getURL('https://raw.githubusercontent.com/RedBeren/siemens-wind/master/Data/Data/Codes%20and%20Event%20Warning%20Stop%20classification.csv')
+codes <- read.csv(text = dat.url)
 
 # Clean up dates
 date.clean <- function(d) {
@@ -29,3 +33,8 @@ dat$StationID <- as.character(dat$StationID)
 dat$VisitId <- as.character(dat$VisitId)
 dat$Code <- as.character(dat$Code)
 
+# Join code classification info onto full data set
+dat <- left_join(dat, codes, by = 'Code')
+
+# Recode stop urgency to make it a little clearer
+dat$StopUrgency <- factor(dat$StopUrgency, labels = c('NoStop','Urgency1','Urgency2','Urgency3','Urgency4','Urgency5','Urgency6'))

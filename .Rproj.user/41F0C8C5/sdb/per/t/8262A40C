@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "library(clickstream)\nlibrary(igraph)\n\n#Markov Chain (takes forever)\nmc <- fitMarkovChain(clicks)\nshow(mc)\nend_probs <- mc@end\n\n# Get the absorbing states\nabs_states <- absorbingStates(mc)\n\n# Two main absorbing states, so try splitting into two clusters\nclusters <- clusterClickstreams(clicks, order = 0, centers = 2)\nsummary(clusters)\n\n# Build Markov Chain off each cluster and check absorbing states\nmc1 <- fitMarkovChain(clusters$clusters[1])\nmc2 <- fitMarkovChain(clusters$clusters[2])\nshow(mc1) # Code 15001 Warning NoStop\nshow(mc2) # Code 10105 Stop Urgency5\n\n#Frequencies\nfrequencyDF <- frequencies(clicks)\n",
+    "created" : 1488748784494.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2094046950",
+    "id" : "8262A40C",
+    "lastKnownWriteTime" : 1489013620,
+    "last_content_update" : 1489013620654,
+    "path" : "~/GitHub/siemens-wind/clickstream.R",
+    "project_path" : "clickstream.R",
+    "properties" : {
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
