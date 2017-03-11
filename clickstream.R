@@ -1,5 +1,4 @@
 library(clickstream)
-library(markovchain)
 library(igraph)
 
 #Markov Chain (takes forever)

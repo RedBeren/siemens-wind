@@ -38,3 +38,11 @@ dat$Code <- as.character(dat$Code)
 # Join code classification info onto full data set
 dat <- left_join(dat, codes, by = 'Code')
 dat$StopUrgency <- as.factor(dat$StopUrgency)
+dat$StopUrgency <- recode(dat$StopUrgency,
+                          '0'='NoStop',
+                          '1'='Stop1',
+                          '2'='Stop2',
+                          '3'='Stop3',
+                          '4'='Stop4',
+                          '5'='Stop5',
+                          '6'='Stop6')

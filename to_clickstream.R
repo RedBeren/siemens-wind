@@ -6,13 +6,14 @@ all_codes <- select(dat, one_of(c("VisitId","Code","TimeOn","StopUrgency","Visit
 
 attach(all_codes)
 
-all_codes <- mutate(all_codes, binned_dur = cut(VisitDurMinutes, breaks=c(seq(from=0,to=30,by=5),Inf), labels=c('0-5',
+all_codes <- mutate(all_codes, binned_dur = as.character(cut(VisitDurMinutes, breaks=c(seq(from=0,to=30,by=5),Inf), labels=c('0-5',
                                                                                                                 '6-10',
                                                                                                                 '11-15',
                                                                                                                 '16-20',
                                                                                                                 '21-25',
                                                                                                                 '26-30',
-                                                                                                                '30+')))
+                                                                                                                '30+'))))
+all_codes$StopUrgency <- as.character(all_codes$StopUrgency)
 sorted_codes <- all_codes[order(VisitId, TimeOn),]
 
 detach(all_codes)
@@ -27,7 +28,7 @@ for (i in 1:nrow(sorted_codes)) {
   if(sorted_codes$VisitId[i] == names(clicks)[visit.ind]) {
     clicks[[visit.ind]] <- append(clicks[[visit.ind]], sorted_codes$Code[i])
   } else {
-    clicks[[visit.ind]] <- append(clicks[[visit.ind]], sorted_codes$StopUrgency[i])
+    clicks[[visit.ind]] <- append(clicks[[visit.ind]], sorted_codes$StopUrgency[i-1])
     visit.ind <- visit.ind + 1
     clicks[[visit.ind]] <- append(clicks[[visit.ind]], sorted_codes$Code[i])
   }
@@ -43,7 +44,7 @@ for (i in 1:nrow(sorted_codes)) {
   if(sorted_codes$VisitId[i] == names(clicks_visitduration)[visit.ind]) {
     clicks_visitduration[[visit.ind]] <- append(clicks_visitduration[[visit.ind]], sorted_codes$Code[i])
   } else {
-    clicks_visitduration[[visit.ind]] <- append(clicks_visitduration[[visit.ind]], sorted_codes$binned_dur[i])
+    clicks_visitduration[[visit.ind]] <- append(clicks_visitduration[[visit.ind]], sorted_codes$binned_dur[i-1])
     visit.ind <- visit.ind + 1
     clicks_visitduration[[visit.ind]] <- append(clicks_visitduration[[visit.ind]], sorted_codes$Code[i])
   }
