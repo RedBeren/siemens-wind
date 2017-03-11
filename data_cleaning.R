@@ -8,6 +8,8 @@ dat <- read.csv(text = dat.url)
 dat.url <- getURL('https://raw.githubusercontent.com/RedBeren/siemens-wind/master/Data/Data/Codes%20and%20Event%20Warning%20Stop%20classification.csv')
 codes <- read.csv(text = dat.url)
 
+codes$Code <- as.character(codes$Code)
+
 # Clean up dates
 date.clean <- function(d) {
   d <- as.character(d)
@@ -35,6 +37,4 @@ dat$Code <- as.character(dat$Code)
 
 # Join code classification info onto full data set
 dat <- left_join(dat, codes, by = 'Code')
-
-# Recode stop urgency to make it a little clearer
-dat$StopUrgency <- factor(dat$StopUrgency, labels = c('NoStop','Urgency1','Urgency2','Urgency3','Urgency4','Urgency5','Urgency6'))
+dat$StopUrgency <- as.factor(dat$StopUrgency)

@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "library(RCurl)\nlibrary(chron)\nlibrary(dplyr)\n\ndat.url <- getURL('https://raw.githubusercontent.com/RedBeren/siemens-wind/master/Data/Data/All%20Sites%20Together%20encoded.csv')\ndat <- read.csv(text = dat.url)\n\ndat.url <- getURL('https://raw.githubusercontent.com/RedBeren/siemens-wind/master/Data/Data/Codes%20and%20Event%20Warning%20Stop%20classification.csv')\ncodes <- read.csv(text = dat.url)\n\ncodes$Code <- as.character(codes$Code)\n\n# Clean up dates\ndate.clean <- function(d) {\n  d <- as.character(d)\n  d <- sapply(d, function(x) paste(x, \":00\", sep = ''))\n  dtparts <- t(as.data.frame(strsplit(d, ' ')))\n  row.names(dtparts) <- NULL\n  d <- chron(dates. = dtparts[,1], times. = dtparts[,2], format = c('m/d/y','h:m:s'))\n  return(d)\n}\n\ndat$VisitStartTime <- date.clean(dat$VisitStartTime)\ndat$TimeOn <- date.clean(dat$TimeOn)\ndat$TimeOff <- date.clean(dat$TimeOff)\n\n# Park_Name is a little messed up\nnames(dat)[1] <- 'Park_Name'\n\n# Discretize FactorA so it can be used in association analysis\ndat$FactorA <- as.factor(dat$FactorA)\n\n# StationID, VisitID, Code should be strings\ndat$StationID <- as.character(dat$StationID)\ndat$VisitId <- as.character(dat$VisitId)\ndat$Code <- as.character(dat$Code)\n\n# Join code classification info onto full data set\ndat <- left_join(dat, codes, by = 'Code')\ndat$StopUrgency <- as.factor(dat$StopUrgency)\n",
+    "created" : 1488143928058.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "539147740",
+    "id" : "996813C1",
+    "lastKnownWriteTime" : 1489090288,
+    "last_content_update" : 1489090288291,
+    "path" : "~/GitHub/siemens-wind/data_cleaning.R",
+    "project_path" : "data_cleaning.R",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
