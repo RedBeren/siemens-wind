@@ -1,14 +1,14 @@
 {
     "collab_server" : "",
-    "contents" : "# Run data_cleaning.R first\n\nlibrary(arules)\nrequire(dplyr)\n\ndat %>% select(one_of(c(\"VisitId\",\"Code\"))) -> codes_by_visit\n\ncodes_by_visit$VisitId <- factor(codes_by_visit$VisitId)\ncodes_by_visit$Code <- factor(codes_by_visit$Code)\n\ntrans <- as(split(codes_by_visit[,\"Code\"], codes_by_visit[,\"VisitId\"]), \"transactions\")\ninspect(trans[1:5])\n\nrules <- apriori(trans)\ninspect(rules[1:5])\n",
+    "contents" : "# Run data_cleaning.R first\n\nlibrary(arules)\nlibrary(arulesViz)\nrequire(dplyr)\n\ndat %>% select(one_of(c(\"VisitId\",\"Code\"))) -> codes_by_visit\n\ncodes_by_visit$VisitId <- factor(codes_by_visit$VisitId)\ncodes_by_visit$Code <- factor(codes_by_visit$Code)\n\ntrans <- as(split(codes_by_visit[,\"Code\"], codes_by_visit[,\"VisitId\"]), \"transactions\")\ninspect(trans[1:5])\n\nrules <- apriori(trans)\ninspect(rules[1:5])\n",
     "created" : 1488228878998.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "67582738",
+    "hash" : "1329895767",
     "id" : "370DF912",
-    "lastKnownWriteTime" : 1488753737,
-    "last_content_update" : 1488753737307,
+    "lastKnownWriteTime" : 1489296893,
+    "last_content_update" : 1489296893125,
     "path" : "~/GitHub/siemens-wind/association.R",
     "project_path" : "association.R",
     "properties" : {

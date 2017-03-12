@@ -1,6 +1,7 @@
 # Run data_cleaning.R first
 
 library(arules)
+library(arulesViz)
 require(dplyr)
 
 dat %>% select(one_of(c("VisitId","Code"))) -> codes_by_visit
