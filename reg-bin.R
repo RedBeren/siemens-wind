@@ -14,14 +14,14 @@ all_codes <- mutate(all_codes, binned_dur = as.character(cut(VisitDurMinutes, br
 detach(all_codes)
 
 regdat3 <- left_join(regdat2, all_codes, by = "VisitId")
-regdat3 <- select(regdat3, -VisitDurMinutes.x, -VisitDurMinutes.y)
+regdat3 <- select(regdat3, -VisitDurMinutes.x, -VisitDurMinutes.y, -StationID)
 regdat3$binned_dur <- as.numeric(regdat3$binned_dur)
 
 lm2 <- lm(regdat3$binned_dur ~ regdat3$FactorA +
             regdat3$FactorB +
             regdat3$FactorC +
             regdat3$FactorD +
-            regdat3$StationID +	
+          	
             regdat3$VisitType)
 summary(lm2)
 library(tree)
@@ -37,7 +37,7 @@ regmat2 <- model.matrix( ~ binned_dur + FactorA +
                           FactorB +
                           FactorC +
                           FactorD +
-                          StationID +	
+                        	
                           VisitType, data = regdat3)
 regmat2 <- regmat2[,-1]
 
@@ -45,7 +45,7 @@ n2 <- names(as.data.frame(regmat2))
 f2 <- as.formula(paste("binned_dur ~", paste(n2[!n2 %in% "binned_dur"], collapse = " + ")))
 library(neuralnet)
 nn2<-NULL
-nn2 <- neuralnet(f2,data=regmat2,hidden=c(1),linear.output=T)
+nn2 <- neuralnet(f2,data=regmat2,hidden=c(5,5),linear.output=T)
 
 nnres2 <- nn2$result.matrix
 ppnn2 <- prediction(nn2)
